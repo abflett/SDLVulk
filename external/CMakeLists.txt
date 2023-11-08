@@ -1,4 +1,4 @@
-find_package(Vulkan REQUIRED FATAL_ERROR)
+find_package(Vulkan REQUIRED)
 
 add_subdirectory(sdl)
 

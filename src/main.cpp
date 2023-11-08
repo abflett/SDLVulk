@@ -1,30 +1,11 @@
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_vulkan.h>
 #include <vulkan/vulkan.h>
 
 #include <iostream>
+#include <vector>
 
 int main(int argc, char* argv[]) {
-    VkApplicationInfo appInfo{};
-    appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName = "Hello Vulkan";
-    appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-    appInfo.pEngineName = "No Engine";
-    appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
-    appInfo.apiVersion = VK_API_VERSION_1_0;
-
-    VkInstanceCreateInfo createInfo{};
-    createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-    createInfo.pApplicationInfo = &appInfo;
-
-    VkInstance instance;
-    if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create instance!");
-    }
-
-    // Don't forget to destroy the instance when you're done with it!
-    vkDestroyInstance(instance, nullptr);
-
-    //////////////
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         std::cerr << "Failed to initialize SDL: " << SDL_GetError()
                   << std::endl;
@@ -33,8 +14,8 @@ int main(int argc, char* argv[]) {
 
     SDL_Window* window =
         SDL_CreateWindow("SDLVulk Test", 800, 600,
-                         SDL_WindowFlags::SDL_WINDOW_RESIZABLE |
-                             SDL_WindowFlags::SDL_WINDOW_VULKAN);
+                         // SDL_WindowFlags::SDL_WINDOW_RESIZABLE |
+                         SDL_WindowFlags::SDL_WINDOW_VULKAN);
     if (!window) {
         std::cerr << "Failed to create window: " << SDL_GetError() << std::endl;
         SDL_Quit();
