@@ -1,4 +1,5 @@
 #include <SDL3/SDL.h>
+#include <vulkan/vulkan.h>
 
 #include <iostream>
 
@@ -6,7 +7,7 @@ int main(int argc, char* argv[]) {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         std::cerr << "Failed to initialize SDL: " << SDL_GetError()
                   << std::endl;
-        return 1;
+        return EXIT_FAILURE;
     }
 
     SDL_Window* window = SDL_CreateWindow(
@@ -14,7 +15,7 @@ int main(int argc, char* argv[]) {
     if (!window) {
         std::cerr << "Failed to create window: " << SDL_GetError() << std::endl;
         SDL_Quit();
-        return 1;
+        return EXIT_FAILURE;
     }
 
     SDL_Renderer* renderer =
@@ -24,7 +25,7 @@ int main(int argc, char* argv[]) {
                   << std::endl;
         SDL_DestroyWindow(window);
         SDL_Quit();
-        return 1;
+        return EXIT_FAILURE;
     }
 
     SDL_Event event;
@@ -51,5 +52,5 @@ int main(int argc, char* argv[]) {
     SDL_DestroyWindow(window);
     SDL_Quit();
 
-    return 0;
+    return EXIT_SUCCESS;
 }
