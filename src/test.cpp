@@ -5,16 +5,19 @@
 #include <iostream>
 #include <vector>
 
-int main(int argc, char* argv[]) {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+int main(int argc, char *argv[])
+{
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    {
         std::cerr << "Failed to initialize SDL: " << SDL_GetError()
                   << std::endl;
         return EXIT_FAILURE;
     }
 
-    SDL_Window* window =
+    SDL_Window *window =
         SDL_CreateWindow("SDLVulk Test", 800, 600, SDL_WINDOW_VULKAN);
-    if (!window) {
+    if (!window)
+    {
         std::cerr << "Failed to create window: " << SDL_GetError() << std::endl;
         SDL_Quit();
         return EXIT_FAILURE;
@@ -29,16 +32,9 @@ int main(int argc, char* argv[]) {
     appInfo.apiVersion = VK_API_VERSION_1_0;
 
     uint32_t extensionCount = 0;
-    if (!SDL_Vulkan_GetInstanceExtensions(&extensionCount)) {
-        std::cerr << "Failed to get Vulkan instance extensions: "
-                  << SDL_GetError() << std::endl;
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        return EXIT_FAILURE;
-    }
-
-    std::vector<const char*> extensions(extensionCount);
-    if (!SDL_Vulkan_GetInstanceExtensions(&extensionCount)) {
+    std::vector<const char *> extensions(extensionCount);
+    if (!SDL_Vulkan_GetInstanceExtensions(&extensionCount))
+    {
         std::cerr << "Failed to get Vulkan instance extensions: "
                   << SDL_GetError() << std::endl;
         SDL_DestroyWindow(window);
@@ -53,7 +49,8 @@ int main(int argc, char* argv[]) {
     createInfo.ppEnabledExtensionNames = extensions.data();
 
     VkInstance instance;
-    if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
+    if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS)
+    {
         std::cerr << "Failed to create Vulkan instance!" << std::endl;
         SDL_DestroyWindow(window);
         SDL_Quit();
@@ -63,7 +60,8 @@ int main(int argc, char* argv[]) {
     VkAllocationCallbacks allocator = {};
 
     VkSurfaceKHR surface;
-    if (!SDL_Vulkan_CreateSurface(window, instance, &allocator, &surface)) {
+    if (!SDL_Vulkan_CreateSurface(window, instance, &allocator, &surface))
+    {
         std::cerr << "Failed to create Vulkan surface: " << SDL_GetError()
                   << std::endl;
         vkDestroyInstance(instance, nullptr);
@@ -76,10 +74,10 @@ int main(int argc, char* argv[]) {
     // TODO: Add your Vulkan rendering code here.
     // Define vertex data for a white square.
     float vertices[] = {
-        -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,  // Bottom-left
-        0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,  // Bottom-right
-        0.5f,  0.5f,  1.0f, 1.0f, 1.0f,  // Top-right
-        -0.5f, 0.5f,  1.0f, 1.0f, 1.0f   // Top-left
+        -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, // Bottom-left
+        0.5f, -0.5f, 1.0f, 1.0f, 1.0f,  // Bottom-right
+        0.5f, 0.5f, 1.0f, 1.0f, 1.0f,   // Top-right
+        -0.5f, 0.5f, 1.0f, 1.0f, 1.0f   // Top-left
     };
 
     // Create a vertex buffer and copy the vertex data to it.
