@@ -1,4 +1,4 @@
-add_executable(game main.cpp)
+add_executable(game main.cpp rendering.cpp)
 target_link_libraries(game PRIVATE external)
 
 if (MSVC)
