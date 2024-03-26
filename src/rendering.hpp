@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vulkan/vulkan.h>
+#include <SDL3/SDL.h>
+#include <glm/glm.hpp>
 
 struct VkVertex
 {
