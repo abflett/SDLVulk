@@ -10,8 +10,11 @@ public:
     VulkanRenderer(SDL_Window *window);
     ~VulkanRenderer();
 
-    bool createInstance();
-    bool createDevice();
+    VkInstance createInstance();
+    // VkPhysicalDevice selectPhysicalDevice(const VkInstance vulkanInstance);
+    // VkDevice createDevice(const VkInstance vulkanInstance);
+
+    void printInstanceInfoInConsole(const VkInstance vulkanInstance);
 
 private:
     SDL_Window *window;

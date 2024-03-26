@@ -27,8 +27,10 @@ int main(int argc, char *argv[])
     }
 
     VulkanRenderer vulkanRenderer(window);
+    VkInstance vulkanInstance = vulkanRenderer.createInstance();
+    vulkanRenderer.printInstanceInfoInConsole(vulkanInstance);
 
-    SDL_Event event;
+        SDL_Event event;
     bool m_running = true;
     while (m_running)
     {
