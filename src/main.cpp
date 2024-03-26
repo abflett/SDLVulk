@@ -18,13 +18,15 @@ int main(int argc, char *argv[])
     }
 
     SDL_Window *window =
-        SDL_CreateWindow("SDLVulk Test", 800, 600, SDL_WindowFlags::SDL_WINDOW_VULKAN);
+        SDL_CreateWindow("SDLVulk Test", 800, 600, SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE);
     if (!window)
     {
         std::cerr << "Failed to create window: " << SDL_GetError() << std::endl;
         SDL_Quit();
         return EXIT_FAILURE;
     }
+
+    VulkanRenderer vulkanRenderer(window);
 
     SDL_Event event;
     bool m_running = true;
@@ -45,10 +47,6 @@ int main(int argc, char *argv[])
                 }
             }
         }
-
-        VkClearColorValue clearColor = {0.5f, 1.0f, 0.5f, 1.0f};
-
-        SDL_UpdateWindowSurface(window);
     }
 
     SDL_DestroyWindow(window);
